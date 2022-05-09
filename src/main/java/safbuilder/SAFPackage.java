@@ -251,7 +251,7 @@ class SAFPackage {
      */
     private void processMetaBody() throws IOException {
         // The implementation of processing CSV starts counting from 0. 0 = header, 1..n = body/content
-        int rowNumber = 1;
+        int rowNumber = 0;
 
         while (inputCSV.readRecord()) {
             processMetaBodyRow(rowNumber++);
@@ -447,7 +447,8 @@ class SAFPackage {
      * @return Absolute path to the newly created directory
      */
     private String makeNewDirectory(int itemNumber) {
-        File newDirectory = new File(input.getPath() + "/" + outputFilename + "/item_" + itemNumber);
+        String zeroFillDigit = String.format("%04d", itemNumber);
+        File newDirectory = new File(input.getPath() + "/" + outputFilename + "/item_" + zeroFillDigit);
         newDirectory.mkdir();
         return newDirectory.getAbsolutePath();
     }
